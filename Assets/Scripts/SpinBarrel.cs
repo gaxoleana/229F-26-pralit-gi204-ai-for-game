@@ -2,13 +2,24 @@ using UnityEngine;
 
 public class SpinBarrel : MonoBehaviour
 {
-    public float moveForce = 800f;
-    public float spinForce = 150f;
+    public float moveForce = 80f;
+    public float spinTorque = 15f;
 
-    public Rigidbody rb;
+    public AudioSource rollingSource;
+    public float maxVolumeSpeed = 10f;
+
+    private Rigidbody rb;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (rollingSource != null)
+        {
+            rollingSource.loop = true;
+            rollingSource.playOnAwake = true;
+            rollingSource.volume = 0;
+            rollingSource.Play();
+        }
     }
 
 
@@ -16,9 +27,15 @@ public class SpinBarrel : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(transform.forward * spinForce);
-            // Optional: Add a little upward force to make it hop
-            rb.AddForce(transform.up * (spinForce / 2));
+            rb.AddForce(Vector3.right * moveForce);
+            rb.AddTorque(transform.right * spinTorque);
+        }
+
+        if (rollingSource != null)
+        {
+            float currentSpeed = rb.linearVelocity.magnitude;
+            rollingSource.volume = Mathf.Lerp(0, 1, currentSpeed / maxVolumeSpeed);
+            rollingSource.pitch = Mathf.Lerp(0.8f, 1.2f, currentSpeed / maxVolumeSpeed);
         }
     }
 }
