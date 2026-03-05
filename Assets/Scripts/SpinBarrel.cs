@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class SpinBarrel : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float moveForce = 800f;
+    public float spinForce = 150f;
+
+    public Rigidbody rb;
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(transform.forward * spinForce);
+            // Optional: Add a little upward force to make it hop
+            rb.AddForce(transform.up * (spinForce / 2));
+        }
     }
 }
