@@ -6,7 +6,7 @@ public class SpinBarrel : MonoBehaviour
     public float spinTorque = 15f;
 
     public AudioSource rollingSource;
-    public float maxVolumeSpeed = 10f;
+    public float maxVolumeSpeed = 1f;
 
     private Rigidbody rb;
     void Start()
@@ -35,7 +35,7 @@ public class SpinBarrel : MonoBehaviour
         {
             float currentSpeed = rb.linearVelocity.magnitude;
             rollingSource.volume = Mathf.Lerp(0, 1, currentSpeed / maxVolumeSpeed);
-            rollingSource.pitch = Mathf.Lerp(0.8f, 1.2f, currentSpeed / maxVolumeSpeed);
+            rollingSource.pitch = Mathf.Lerp(1.0f, 0.8f, currentSpeed / maxVolumeSpeed);
         }
     }
 }
