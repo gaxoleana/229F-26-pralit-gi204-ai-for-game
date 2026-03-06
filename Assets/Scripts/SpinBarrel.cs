@@ -25,6 +25,8 @@ public class SpinBarrel : MonoBehaviour
 
     void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.right * moveForce);
@@ -34,6 +36,7 @@ public class SpinBarrel : MonoBehaviour
         if (rollingSource != null)
         {
             float currentSpeed = rb.linearVelocity.magnitude;
+            Debug.Log("Current Speed is " + currentSpeed);
             rollingSource.volume = Mathf.Lerp(0, 1, currentSpeed / maxVolumeSpeed);
             rollingSource.pitch = Mathf.Lerp(1.0f, 0.8f, currentSpeed / maxVolumeSpeed);
         }
